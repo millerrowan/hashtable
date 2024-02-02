@@ -1,0 +1,52 @@
+#include <iostream>
+#include "student.h"
+#include <cstring>
+#include <vector>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
+
+Student::Student() {
+  //there may be an error here bc you did not check if it works
+  first.open ("FirstName.txt");
+  first >> skipws;
+
+  last.open("LastName.txt");
+  last >> skipws;
+
+    for(int l = 3897; l > 0; l--){
+      char* tmp = new char[20];
+      first >> tmp;
+      fn.push_back(tmp);
+      char* temp = new char[20];
+      last >> temp;
+      ln.push_back(temp);
+    }
+    
+    srand(time(0));
+
+    //rand() % 3897
+    
+}
+
+Student::~Student() {
+  delete firstName;
+  delete lastName;
+}
+
+char* Student::getFN() {
+  return firstName;
+}
+
+char* Student::getLN() {
+  return lastName;
+}
+
+int Student::getID() {
+  return id;
+}
+
+float Student::getGPA() {
+  return gpa; 
+}
