@@ -36,7 +36,7 @@ int main() {
     //if user input equals ADD
     if(strcmp(input, "ADD")==0) {
       Student* s = new Student(numofStudents);
-      Node* nextNode = new Node(s);
+      Node* current = new Node(s);
       numofStudents++;
       add();
     }
@@ -65,13 +65,34 @@ int main() {
 }
 
 //adds a student to the hashtable
-void add() {
+void add(int size, Node** ht, Node* current) {
+  int input;
+  cout << "how many students would you like to add?" << endl;
+  cin >> input;
+  
   int hashIndex = (s->getID()) % size;
-  if(ht[hashIndex] == NULL) {
-    ht[hashIndex] = new Node;
-  }
-  else if(ht[hashIndex]->next == NULL) {
-    ht[hashIndex]->next = new Node;
+
+  for (int i = 0; i <= input; i++) {
+    
+    if(ht[hashIndex] == NULL) {
+      ht[hashIndex] = new Node(s);
+      ht[hashIndex]->setNext(NULL);
+    }
+    else if(ht[hashIndex]->getNext() == NULL) {
+      Node* temp = new Node(s);
+      ht[hashIndex]->setNext(temp);
+    }
+    else if(ht[hashIndex]->getNext()->getNext() == NULL) {
+      Node* temp = new Node(s);
+      ht[hashIndex]->getNext()->setNext(temp);
+      
+    }
+    else{
+      //need to rehash table
+      size = size*2;
+      hashIndex = (s->getID()) % size;
+      rehash(); 
+    }
   }
   
   //ht[3]->next = new Node; 
@@ -81,7 +102,7 @@ void add() {
 
 //prints out all students in the hashtable	   
 void print() {
-
+  
 }
 
 //deletes a student from the hashtable
@@ -90,5 +111,29 @@ void Delete() {
 }
 
 //rehashing the hash table
-void rehash() {
+void rehash(int size, Node** ht) {
+
+  Node** temp = new Node[size]; 
+  
+  for(int i = 0; i < size; i++) {
+    temp[i] = NULL; 
+    
+  }
+
+  for(int j = 0; j < size; j++) {         
+    if(ht[j] != NULL) {
+      Node* head = ht[j];
+      if(head->getNext() != NULL) {
+	if(head->getNext()->getNext() != NULL){
+	  ADD(size, temp, head);
+	}
+	ADD(size, temp, head);
+      }
+      ADD(size, temp, head);
+    }
+    
+  }
+
+  
+  
 }
