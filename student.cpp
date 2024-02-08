@@ -27,7 +27,7 @@ Student::Student(int numofStudents) {
     }
 
     
-    srand(time(0));
+    //  srand(time(0));
 
     int nn = 0 + (rand() % 3897);
 

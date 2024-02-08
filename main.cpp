@@ -11,38 +11,46 @@
 
 using namespace std;
 
-void add();
-void print();
-void Delete();
-void rehash();
+void add(int size, Node** ht, Node* current);
+void print(int size, Node** ht);
+void Delete(int stored);
+void rehash(int size, Node** &ht);
 
 int main() {
   
   bool stillPlaying = true; 
 
+  int size = 10;
   
   Node** ht = new Node*[size];
 
+  Node* head = NULL; 
+  
   char input[10];
 
   int numofStudents = 0;
-
-  int size = 100;
+  int inputStudents = 0;
 
   while(stillPlaying == true) {
-    cout << "Enter 'ADD', 'PRINT', 'DELETE', 'AVERAGE', or 'QUIT'" << endl;
+    cout << "Enter 'ADD', 'PRINT', 'DELETE', or 'QUIT'" << endl;
     
     cin >> input;
     //if user input equals ADD
     if(strcmp(input, "ADD")==0) {
+
+      cout << "how many students would you like to add" << endl;
+      cin >> inputStudents;
+
+      for(int i =0; i < inputStudents; i++) {
       Student* s = new Student(numofStudents);
       Node* current = new Node(s);
       numofStudents++;
-      add();
+      add(size, ht, current);
+      }
     }
     //if user input equals PRINT
     if(strcmp(input, "PRINT")==0) {
-      print();
+      print(size, ht);
     }
 
     //if user input equals DELETE
@@ -50,11 +58,7 @@ int main() {
       int stored;
       cout << "Type in the student id of the student you want to delete" << endl;
       cin >> stored;
-      Delete();
-    }
-    //if user input equals REHASH
-    if(strcmp(input, "REHASH")==0) {
-      rehash();
+      Delete(stored);
     }
 
     //if user input equals QUIT
@@ -66,34 +70,30 @@ int main() {
 
 //adds a student to the hashtable
 void add(int size, Node** ht, Node* current) {
-  int input;
-  cout << "how many students would you like to add?" << endl;
-  cin >> input;
   
-  int hashIndex = (s->getID()) % size;
-
-  for (int i = 0; i <= input; i++) {
+  int hashIndex = (current->getStudent()->getID()) % size;
     
     if(ht[hashIndex] == NULL) {
-      ht[hashIndex] = new Node(s);
+      ht[hashIndex] = current; 
       ht[hashIndex]->setNext(NULL);
     }
     else if(ht[hashIndex]->getNext() == NULL) {
-      Node* temp = new Node(s);
-      ht[hashIndex]->setNext(temp);
+      ht[hashIndex]->setNext(current);
+      ht[hashIndex]->getNext()->setNext(NULL);
     }
     else if(ht[hashIndex]->getNext()->getNext() == NULL) {
-      Node* temp = new Node(s);
-      ht[hashIndex]->getNext()->setNext(temp);
+      cout << "3rd else if" << endl; 
+      ht[hashIndex]->getNext()->setNext(current);
+      ht[hashIndex]->getNext()->getNext()->setNext(NULL);
       
     }
     else{
       //need to rehash table
+      cout << "rehash" << endl;
       size = size*2;
-      hashIndex = (s->getID()) % size;
-      rehash(); 
+      hashIndex = (current->getStudent()->getID()) % size;
+      rehash(size, ht);
     }
-  }
   
   //ht[3]->next = new Node; 
   
@@ -101,39 +101,50 @@ void add(int size, Node** ht, Node* current) {
 }
 
 //prints out all students in the hashtable	   
-void print() {
+void print(int size, Node** ht) {
   
+  for(int i = 0; i < size; i++) {
+    Node* temp = ht[i]; 
+    while(temp != NULL) {
+	cout << temp->getStudent()->getFN() << " " << temp->getStudent()->getLN() << ", " << temp->getStudent()->getID();
+	cout.precision(2);
+	cout << ", " << temp->getStudent()->getGPA() << endl;
+	temp = temp->getNext(); 
+    }
+  }
 }
-
+  
 //deletes a student from the hashtable
-void Delete() {
+void Delete(int stored) {
   
 }
 
 //rehashing the hash table
-void rehash(int size, Node** ht) {
+void rehash(int size, Node** &ht) {
 
-  Node** temp = new Node[size]; 
+  Node** temp = new Node*[size]; 
   
   for(int i = 0; i < size; i++) {
     temp[i] = NULL; 
     
   }
 
-  for(int j = 0; j < size; j++) {         
+  for(int j = 0; j < size/2; j++) {         
     if(ht[j] != NULL) {
       Node* head = ht[j];
+      //head->getNext() = NULL; 
       if(head->getNext() != NULL) {
 	if(head->getNext()->getNext() != NULL){
-	  ADD(size, temp, head);
+	  add(size, temp, head);
 	}
-	ADD(size, temp, head);
+	add(size, temp, head);
       }
-      ADD(size, temp, head);
+      add(size, temp, head);
     }
     
   }
 
-  
+  delete ht;
+  ht = temp; 
   
 }
