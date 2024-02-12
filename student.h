@@ -21,9 +21,9 @@ class Student {
   char* lastName;
   int id;
   float gpa;
-  ifstream first;
+   ifstream first;
   ifstream last;
   vector<char*> fn;
-  vector<char*> ln;
+   vector<char*> ln;
 };
 #endif
