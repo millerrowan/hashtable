@@ -13,7 +13,7 @@ using namespace std;
 
 void add(int size, Node** ht, Node* current);
 void print(int size, Node** ht);
-void Delete(int stored);
+void Delete(int stored, Node** ht, int size);
 void rehash(int size, Node** &ht);
 
 int main() {
@@ -23,6 +23,9 @@ int main() {
   int size = 10;
   
   Node** ht = new Node*[size];
+  for(int i = 0; i < size; i++) {
+    ht[i] = NULL:
+  }
 
   Node* head = NULL; 
   
@@ -58,7 +61,7 @@ int main() {
       int stored;
       cout << "Type in the student id of the student you want to delete" << endl;
       cin >> stored;
-      Delete(stored);
+      Delete(stored, ht, size);
     }
 
     //if user input equals QUIT
@@ -69,9 +72,9 @@ int main() {
 }
 
 //adds a student to the hashtable
-void add(int size, Node** ht, Node* current) {
+void add(int size, Node** &ht, Node* current) {
   
-  int hashIndex = (current->getStudent()->getID()) % size;
+  int hashIndex = (current->getStudent()->getID()) % size; //probably going to say current isn't defined
     
     if(ht[hashIndex] == NULL) {
       ht[hashIndex] = current; 
@@ -115,7 +118,26 @@ void print(int size, Node** ht) {
 }
   
 //deletes a student from the hashtable
-void Delete(int stored) {
+void Delete(int stored, Node** &ht, int size) {
+  int hashIndex =  (current->getStudent()->getID()) % size;
+
+  if(ht[hashIndex]->getID() == stored) {
+    Node* current = ht[hashIndex]->getNext();
+    delete ht[hashIndex]; 
+
+  }
+  else if(ht[hashIndex]->getNext()->getID() == stored){
+
+  }
+  else if(ht[hashIndex]->getNext()->getNext()->getID() == stored) {
+    
+
+  }
+  else {
+    cout << "there is no student with that id" << endl;
+
+  }
+  
   
 }
 
