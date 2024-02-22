@@ -10,6 +10,7 @@ using namespace std;
 class Student {
  public:
   Student(int numofStudents);
+  Student(); 
   ~Student();
   char* getFN();
   char* getLN();

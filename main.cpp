@@ -42,78 +42,30 @@ int main() {
     //if user input equals ADD
     if(strcmp(input, "ADD")==0) {
 
-      /*cout << "would you like to enter students manually or randomly generated? Type MANUAL or RANDOM" << endl;
+      cout << "would you like to enter students manually or randomly generated? Type MANUAL or RANDOM" << endl;
       cin >> input2;
 
       if(strcmp(input2, "MANUAL")==0) {
 	Student* s = new Student();
-	cout << "student created" << endl;
-	cout << "Enter the first name" << endl;
-	char* firstName = new char[20];
-	cin >> firstName;
-	cout << "Enter the last name" << endl;
-	char* lastName = new char[20];
-	cin >> lastName;
-	cout << "Enter the student id" << endl;
-	int id;
-	cin >> id;
-	cout << "Enter the gpa" << endl;
-	float gpa;
-	cin >> gpa;
 	Node* current = new Node(s);
-        numofStudents++;
-        add(size, ht, current);
+	numofStudents++;
+	add(size, ht, current);
       }
-      */
       
       //randomly generated students
-      //if(strcmp(input2, "RANDOM")==0) {
-	cout << "how many students would you like to add" << endl;
+      if(strcmp(input2, "RANDOM")==0) {
+	cout << "how many students would you like to add?" << endl;
 	cin >> inputStudents;
-
-	/* ifstream first;
-	ifstream last;
-	vector<char*> fn;
-	vector<char*> ln; */
-	
 	for(int i =0; i < inputStudents; i++) {
-	  Student* s = new Student(numofStudents);
-	  /*  first.open ("FirstNames.txt");
-	  // first >> skipws;
-	  last.open("LastNames.txt");
-	  //last >> skipws;
-	  
-	  for(int l = 3897; l > 0; l--){
-	    char* tmp = new char[20];
-	    first >> tmp;
-	    fn.push_back(tmp);
-	    //cout << tmp << endl;
-	    char* temp = new char[20];
-	    last >> temp;
-	    ln.push_back(temp);
-	    //cout << temp << endl;
-	  }
-	  int nn = 0 + (rand() % 3897);
-	  
-	  char* firstName = fn[nn];
-	  char* lastName = ln[nn];
-	  
-	  cout << "first: " << firstName << endl;
-	  cout << "last: " << lastName << endl;
-	  
-	  int id = numofStudents;
-	  cout << "id: " << id << endl;
-	  
-	  float gpa = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/4);
-	  
-	  cout.precision(2);
-	  cout << "gpa: " << gpa << endl; */ 
+	  Student* s = new Student(numofStudents); 
 	  Node* current = new Node(s);
 	  numofStudents++;
 	  add(size, ht, current);
 	}
-	// }
+    
+      }
     }
+  
     //if user input equals PRINT
     if(strcmp(input, "PRINT")==0) {
       print(size, ht);
@@ -133,7 +85,6 @@ int main() {
     }
   }
 }
-
 //adds a student to the hashtable
 void add(int &size, Node** &ht, Node* current) {
   

@@ -5,7 +5,7 @@
 #include <fstream>
 
 using namespace std;
-
+//random student
 Student::Student(int numofStudents) {
   first.open ("FirstNames.txt");
   // first >> skipws;
@@ -27,16 +27,25 @@ Student::Student(int numofStudents) {
           firstName = fn[nn];
           lastName = ln[nn];
 
-          cout << "first: " << firstName << endl;
-          cout << "last: " << lastName << endl;
-
           id = numofStudents;
           cout << "id: " << id << endl;
 
           gpa = static_cast <float> (rand()) / static_cast <float> (RAND_MAX/4);
+ 
+}
+//manual student
+Student::Student() {
+  cout << "enter a first name" << endl;
+  firstName = new char[20];
+  cin >> firstName;
+  cout << "enter a last name" << endl;
+  lastName = new char[20];
+  cin >> lastName;
+  cout << "enter an id" << endl;
+  cin >> id;
+  cout << "enter a gpa" << endl;
+    cin >> gpa; 
 
-          cout.precision(2);
-          cout << "gpa: " << gpa << endl; 
 }
 
 Student::~Student() {
